@@ -1,0 +1,85 @@
+﻿<UserControl
+    x:Class="WpfFirmwareDemo.View.ItemsView"
+    x:ClassModifier="internal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModel="clr-namespace:WpfFirmwareDemo.ViewModel"
+    xmlns:valueConverters="clr-namespace:WpfFirmwareDemo.ValueConverters"
+    mc:Ignorable="d"
+    d:designHeight="300"
+    d:designWidth="300"
+    d:DataContext="{d:DesignInstance viewModel:ItemsViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0">
+            <UniformGrid
+                Rows="1">
+                <Button
+                    Content="Reset"
+                    Command="{Binding ResetCommand}" />
+                <Button
+                    Content="Remove"
+                    Command="{Binding RemoveCommand}" />
+            </UniformGrid>
+            <ListBox
+                SelectedItem="{Binding Selected}"
+                ItemsSource="{Binding Things}">
+                <ItemsControl.ItemContainerStyle>
+                    <Style
+                        TargetType="ListBoxItem">
+                        <Setter
+                            Property="Margin"
+                            Value="0" />
+                        <Setter
+                            Property="Padding"
+                            Value="0" />
+                        <Setter
+                            Property="HorizontalContentAlignment"
+                            Value="Stretch" />
+                        <Setter
+                            Property="VerticalContentAlignment"
+                            Value="Stretch" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Background="{Binding Color, Converter={valueConverters:ColorToSolidColorBrushConverter}}">
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Text="{Binding Name}" />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel
+                            IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ListBox>
+        </StackPanel>
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="1"
+            FontSize="64"
+            FontWeight="Bold"
+            TextAlignment="Center"
+            VerticalAlignment="Center"
+            Text="{Binding Selected.Position}" />
+    </Grid>
+</UserControl>

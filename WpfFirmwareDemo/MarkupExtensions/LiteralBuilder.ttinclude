@@ -1,0 +1,29 @@
+﻿<#+ 
+    //Builds a MarkupExtension to create a literal
+    void BuildLiteralMarkupExtension(string className, string typeName)
+    {
+#>
+namespace WpfFirmwareDemo.MarkupExtensions
+{
+    using System;
+    using System.Windows.Markup;
+
+    [MarkupExtensionReturnType(typeof(<#= typeName #>))]
+    public class <#= className #>Extension: MarkupExtension
+    {
+        public <#= className #>Extension() {}
+
+        public <#= className #>Extension(<#= typeName #> value)
+        {
+            Value = value;
+        }
+
+        [ConstructorArgument("value")]
+        public <#= typeName #> Value { get; set; }
+
+        public override object ProvideValue(IServiceProvider serviceProvider) => Value;
+    }
+}
+<#+
+    }
+#>

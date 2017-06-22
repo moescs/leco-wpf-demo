@@ -1,0 +1,70 @@
+﻿<UserControl
+    x:Class="WpfFirmwareDemo.View.OverView"
+    x:ClassModifier="internal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:viewModel="clr-namespace:WpfFirmwareDemo.ViewModel"
+    xmlns:valueConverters="clr-namespace:WpfFirmwareDemo.ValueConverters"
+    mc:Ignorable="d"
+    d:designHeight="300"
+    d:designWidth="300"
+    d:DataContext="{d:DesignInstance viewModel:OverViewModel}">
+    <FrameworkElement.Resources>
+        <valueConverters:IsEmptyStringConverter
+            x:Key="CollapsedIfEmptyStringConverter"
+            TrueValue="{x:Static Visibility.Collapsed}"
+            FalseValue="{x:Static Visibility.Visible}" />
+        <Style
+            x:Key="TextFrameworkElementStyle"
+            TargetType="FrameworkElement">
+            <Setter
+                Property="TextElement.FontSize"
+                Value="14" />
+        </Style>
+    </FrameworkElement.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <DockPanel
+            Grid.Row="0">
+            <WrapPanel
+                DockPanel.Dock="Bottom"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Style="{StaticResource TextFrameworkElementStyle}"
+                    Text="Type some text" />
+                <TextBox
+                    x:Name="MainText"
+                    Margin="10,0,0,0"
+                    MinWidth="100"
+                    Style="{StaticResource TextFrameworkElementStyle}"
+                    Text="{Binding Input}" />
+            </WrapPanel>
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource TextFrameworkElementStyle}"
+                FontStyle="Italic"
+                Text="{Binding ElementName=MainText, Path=Text, Converter={valueConverters:UppercaseConverter}}"
+                RenderTransformOrigin="0.5,0.5">
+                <FrameworkElement.RenderTransform>
+                    <RotateTransform
+                        Angle="180" />
+                </FrameworkElement.RenderTransform>
+            </TextBlock>
+        </DockPanel>
+        <Button
+            Grid.Row="1"
+            Padding="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Command="{Binding ClearCommand}"
+            Content="Clear"
+            Visibility="{Binding ElementName=MainText, Path=Text, Converter={StaticResource CollapsedIfEmptyStringConverter}}"/>
+    </Grid>
+</UserControl>

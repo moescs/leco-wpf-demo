@@ -1,0 +1,58 @@
+﻿<UserControl
+    x:Class="WpfFirmwareDemo.View.CustomControlsView"
+    x:ClassModifier="internal"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:controls="clr-namespace:WpfFirmwareDemo.Controls"
+    xmlns:valueConverters="clr-namespace:WpfFirmwareDemo.ValueConverters"
+    mc:Ignorable="d"
+    d:designHeight="300"
+    d:designWidth="300">
+    <FrameworkElement.Resources>
+        <Style
+            TargetType="controls:FancyToggleButton"
+            BasedOn="{StaticResource {x:Type controls:FancyToggleButton}}">
+            <Setter
+                Property="Margin"
+                Value="10"/>
+            <Setter
+                Property="HorizontalAlignment"
+                Value="Center" />
+        </Style>
+    </FrameworkElement.Resources>
+    <StackPanel>
+        <controls:FancyToggleButton
+            UncheckedContent="No"
+            CheckedContent="Yes" />
+        <controls:FancyToggleButton
+            UncheckedContent="Unacceptable"
+            CheckedContent="OK"
+            UncheckedBackground="Red" />
+        <controls:FancyToggleButton
+            CornerRadius="10"
+            UncheckedContent="Never"
+            CheckedContent="Always" />
+        <controls:FancyToggleButton
+            x:Name="CatDogButton"
+            Margin="10,10,10,0"
+            Height="50"
+            CornerRadius="10">
+            <controls:FancyToggleButton.UncheckedContent>
+                <Image
+                    Source="/Images/cat.png" />
+            </controls:FancyToggleButton.UncheckedContent>
+            <controls:FancyToggleButton.CheckedContent>
+                <Image
+                    Source="/Images/dog.png" />
+            </controls:FancyToggleButton.CheckedContent>
+        </controls:FancyToggleButton>
+        <TextBlock
+            Margin="0,0,0,10"
+            HorizontalAlignment="Center"
+            Foreground="LimeGreen"
+            Text="Correct!!!"
+            Visibility="{Binding ElementName=CatDogButton, Path=IsChecked, Converter={valueConverters:TernaryValueConverter TrueValue={x:Static Visibility.Visible}, FalseValue={x:Static Visibility.Collapsed}}}" />
+    </StackPanel>
+</UserControl>

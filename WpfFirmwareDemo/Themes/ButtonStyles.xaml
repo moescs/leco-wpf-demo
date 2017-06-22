@@ -1,0 +1,66 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:WpfFirmwareDemo.Controls"
+    xmlns:valueConverters="clr-namespace:WpfFirmwareDemo.ValueConverters">
+
+    <Style
+        TargetType="controls:FancyToggleButton">
+        <Setter
+            Property="UncheckedBackground"
+            Value="LightGray" />
+        <Setter
+            Property="CheckedBackground"
+            Value="LightGreen" />
+        <Setter
+            Property="UncheckedPadding"
+            Value="5" />
+        <Setter
+            Property="CheckedPadding"
+            Value="5" />
+        <Setter
+            Property="Template">
+            <Setter.Value>
+                <ControlTemplate
+                    TargetType="controls:FancyToggleButton">
+                    <UniformGrid
+                        Rows="1"
+                        Background="Transparent">
+                        <Border
+                            x:Name="UncheckedBorder"
+                            Padding="{TemplateBinding UncheckedPadding}"
+                            CornerRadius="{TemplateBinding CornerRadius, Converter={valueConverters:CornerRadiusMaskingConverter Sides='TopRight,BottomRight'}}"
+                            Background="{TemplateBinding CheckedBackground}">
+                            <ContentPresenter
+                                HorizontalAlignment="Right"
+                                Content="{TemplateBinding UncheckedContent}" />
+                        </Border>
+                        <Border
+                            x:Name="CheckedBorder"
+                            Padding="{TemplateBinding CheckedPadding}"
+                            CornerRadius="{TemplateBinding CornerRadius, Converter={valueConverters:CornerRadiusMaskingConverter Sides='TopLeft,BottomLeft'}}"
+                            Background="{TemplateBinding UncheckedBackground}">
+                            <ContentPresenter
+                                HorizontalAlignment="Left"                                
+                                Content="{TemplateBinding CheckedContent}" />
+                        </Border>
+                    </UniformGrid>
+                    <ControlTemplate.Triggers>
+                        <Trigger
+                            Property="IsChecked"
+                            Value="True">
+                            <Setter
+                                TargetName="UncheckedBorder"
+                                Property="Background"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=UncheckedBackground}" />
+                            <Setter
+                                TargetName="CheckedBorder"
+                                Property="Background"
+                                Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CheckedBackground}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
