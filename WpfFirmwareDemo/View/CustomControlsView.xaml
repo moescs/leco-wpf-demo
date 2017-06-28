@@ -8,8 +8,8 @@
     xmlns:controls="clr-namespace:WpfFirmwareDemo.Controls"
     xmlns:valueConverters="clr-namespace:WpfFirmwareDemo.ValueConverters"
     mc:Ignorable="d"
-    d:designHeight="300"
-    d:designWidth="300">
+    d:DesignHeight="300"
+    d:DesignWidth="300">
     <FrameworkElement.Resources>
         <Style
             TargetType="controls:FancyToggleButton"

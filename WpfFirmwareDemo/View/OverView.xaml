@@ -8,8 +8,8 @@
     xmlns:viewModel="clr-namespace:WpfFirmwareDemo.ViewModel"
     xmlns:valueConverters="clr-namespace:WpfFirmwareDemo.ValueConverters"
     mc:Ignorable="d"
-    d:designHeight="300"
-    d:designWidth="300"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
     d:DataContext="{d:DesignInstance viewModel:OverViewModel}">
     <FrameworkElement.Resources>
         <valueConverters:IsEmptyStringConverter
